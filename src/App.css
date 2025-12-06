@@ -1,0 +1,73 @@
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  min-width: 50%;
+  border-radius: 6px;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+.close-btn, .btn-save {
+  margin-top: 10px;
+  margin-left: 10px;
+
+}
+
+.btn-save{
+  background-color: #87b3f3;
+  color: white;
+}
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
+  gap: 16px;
+
+}
+
+.main-card-header{
+  display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+}
+.gap{
+  margin: 10px
+}
+
+.form-wrapper{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(159px, 1fr));
+    gap: 16px;
+}
+
+.form-btn-wrapper{
+      display: flex;
+    justify-content: flex-end;
+    margin: 10px;
+}
+
+.add-btn{
+  background-color: #87b3f3;
+  color: white;
+}
