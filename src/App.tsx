@@ -1,13 +1,20 @@
 import { useEffect, useMemo, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import ProductCard from "./components/ProductCard";
 import { products, type Product } from "./data/productsData";
 import ProductModal from "./components/ProductsDlg";
-import { getToLocalStorage, isItemOfLocalStorage, setToLocalStorage } from "./common/coustomHooks";
+import {
+  getToLocalStorage,
+  isItemOfLocalStorage,
+  setToLocalStorage,
+} from "./common/coustomHooks";
+import { useDispatch, useSelector } from "react-redux";
+
+import {setProductsData} from "./components/ProductsSlice";
 
 function App() {
+  const dispatch = useDispatch();
+  const {products} = useSelector((state:any)=>state.Products);
   const [productsList, setProductsList] = useState<Array<Product>>([]);
   const [show, setShow] = useState<boolean>(false);
   const [editMode, setEditMode] = useState<boolean>(false);
@@ -32,13 +39,15 @@ function App() {
     return cats;
   }, []);
 
-  useEffect(()=>{
-    if(!isItemOfLocalStorage('productsList')){
-      setToLocalStorage('productsList', products)
+  useEffect(() => {
+    if (!isItemOfLocalStorage("productsList")) {
+      setToLocalStorage("productsList", products);
     }
-    setProductsList(getToLocalStorage('productsList'))
-  },[])
+    dispatch(setProductsData(getToLocalStorage("productsList")));
+    setProductsList(getToLocalStorage("productsList"));
+  }, []);
 
+console.log("products from redux",products);
   const skuList = useMemo(() => {
     const skuData: any = [];
     productsList.forEach((p) => {
@@ -57,14 +66,14 @@ function App() {
           return ele;
         }
       });
-      setToLocalStorage('productsList', modifiedData)
+      setToLocalStorage("productsList", modifiedData);
       setProductsList(modifiedData);
     } else {
-      const modifiedData =[
+      const modifiedData = [
         ...productsList,
         { ...formData, id: JSON.stringify(productsList.length) },
-      ]
-      setToLocalStorage('productsList', modifiedData)
+      ];
+      setToLocalStorage("productsList", modifiedData);
       setProductsList(modifiedData);
     }
   };
@@ -72,7 +81,6 @@ function App() {
     setEditFormData(formData);
     setEditMode(true);
     setShow(true);
-   
   };
 
   const onClose = () => {
@@ -154,7 +162,9 @@ function App() {
               </select>
             </div>
             <div>
-              <button onClick={() => setShow(true)} className="add-btn">Add Product</button>
+              <button onClick={() => setShow(true)} className="add-btn">
+                Add Product
+              </button>
             </div>
           </div>
           {show && (
@@ -166,16 +176,31 @@ function App() {
               skuList={skuList}
             />
           )}
-          <div className="container" style={{
-              ...(filteredProducts.length === 0 && { justifyContent: 'center' })
-          }}>
-            { filteredProducts.length > 0 ? filteredProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                openDlg={(product) => openDlg(product)}
-              />
-            )) : <h1> No Result Found</h1>}
+          <div
+            className="container"
+            style={{
+              ...(filteredProducts.length === 0 && {
+                justifyContent: "center",
+              }),
+            }}
+          >
+            {filteredProducts.length > 0 ? (
+              filteredProducts.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  openDlg={(product) => openDlg(product)}
+                  handleDeleteAction={(e)=>{
+                    e.stopPropagation();
+                    const modifiedData = productsList.filter((p) => p.id !== product.id);
+                    setToLocalStorage("productsList", modifiedData);
+                    setProductsList(modifiedData);
+                  }}
+                />
+              ))
+            ) : (
+              <h1> No Result Found</h1>
+            )}
           </div>
         </div>
       </div>

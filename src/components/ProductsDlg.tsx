@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useActionState, useOptimistic, useState } from "react";
 import Modal from "../common/Modal";
 
 import type { Product } from "../data/productsData";
@@ -26,12 +26,15 @@ export default function ProductModal({
   const lable: String = editMode ? "Edit" : "Add";
 
   const validate = () => {
+      
+      
     const errs: Partial<Record<keyof Product, string>> = {};
 
     if (!form.name.trim()) errs.name = "Name is required";
 
     if (!form.sku.trim()) errs.sku = "SKU is required";
-    else if (!editMode && skuList.includes(form.sku)) errs.sku = "SKU should be unique";
+    else if (!editMode && skuList.includes(form.sku))
+      errs.sku = "SKU should be unique";
 
     if (form.price === 0 || Number(form.price) <= 0)
       errs.price = "Price must be greater than 0";
@@ -45,9 +48,7 @@ export default function ProductModal({
     return Object.keys(errs).length === 0;
   };
 
-  const handleChange = (
-    e:any
-  ) => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
     setForm((prev) => ({
       ...prev,
@@ -60,19 +61,18 @@ export default function ProductModal({
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validate()) return;
-
-    onSave(form);
-    onClose();
+  const handleSubmit = async () => {
+      if (!validate()) return;
+      
+      return { success: true };
+    
   };
-
+  const [_, action, pending] = useActionState(handleSubmit, { success: false });
   return (
-    <Modal >
+    <Modal>
       <h2>{lable} Product</h2>
 
-      <form onSubmit={handleSubmit}>
+      <form action={action}>
         <div className="form-wrapper">
           <div>
             <label>Name</label>
@@ -82,14 +82,14 @@ export default function ProductModal({
           </div>
           <div>
             <label>SKU</label>
-             <br></br>
+            <br></br>
             <input name="sku" value={form.sku} onChange={handleChange} />
             <br></br>
             {errors.sku && <small className="error">{errors.sku}</small>}
           </div>
           <div>
             <label>Price:</label>
-             <br></br>
+            <br></br>
             <input
               name="price"
               type="number"
@@ -102,7 +102,7 @@ export default function ProductModal({
           </div>
           <div>
             <label>Quantity</label>
-             <br></br>
+            <br></br>
             <input
               name="quantity"
               type="number"
@@ -116,7 +116,7 @@ export default function ProductModal({
           </div>
           <div>
             <label>Category</label>
-             <br></br>
+            <br></br>
             <select
               name="category"
               value={form.category}
@@ -134,12 +134,12 @@ export default function ProductModal({
           </div>
         </div>
         <div className="form-btn-wrapper">
-        <button className="close-btn" onClick={onClose}>
-          Close
-        </button>
-        <button type="submit" className="btn-save">
-          Save
-        </button>
+          <button className="close-btn" onClick={onClose}>
+            Close
+          </button>
+          <button type="submit" className="btn-save">
+            {pending ? "Pending" : "Save"}
+          </button>
         </div>
       </form>
     </Modal>

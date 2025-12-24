@@ -1,18 +1,23 @@
-.card{
+.card {
   background: #fff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-.card:hover{
-  cursor:pointer
+.card:hover {
+  cursor: pointer;
 }
 
- .stock-btn {
-    margin-top: 12px;
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-weight: bold;
-    color: #fff;
-    text-align: center;
-  }
+.stock-btn {
+  margin-top: 12px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+}
+
+.hader-section {
+  display: flex;
+  justify-content: space-between;
+}

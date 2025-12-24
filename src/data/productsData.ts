@@ -9,52 +9,51 @@ export interface Product {
 
 export const products: Product[] = [
   {
-    "id": "p1",
-    "name": "Wireless Keyboard",
-    "sku": "KB-001",
-    "price": 79.99,
-    "quantity": 45,
-    "category": "electronics"
+    id: "p1",
+    name: "Wireless Keyboard",
+    sku: "KB-001",
+    price: 79.99,
+    quantity: 45,
+    category: "electronics",
   },
   {
-    "id": "p2",
-    "name": "USB-C Hub",
-    "sku": "HUB-012",
-    "price": 49.99,
-    "quantity": 8,
-    "category": "electronics"
+    id: "p2",
+    name: "USB-C Hub",
+    sku: "HUB-012",
+    price: 49.99,
+    quantity: 8,
+    category: "electronics",
   },
   {
-    "id": "p3",
-    "name": "Ergonomic Mouse",
-    "sku": "MS-003",
-    "price": 59.99,
-    "quantity": 0,
-    "category": "electronics"
+    id: "p3",
+    name: "Ergonomic Mouse",
+    sku: "MS-003",
+    price: 59.99,
+    quantity: 0,
+    category: "electronics",
   },
   {
-    "id": "p4",
-    "name": "Desk Lamp",
-    "sku": "LMP-007",
-    "price": 34.99,
-    "quantity": 22,
-    "category": "furniture"
+    id: "p4",
+    name: "Desk Lamp",
+    sku: "LMP-007",
+    price: 34.99,
+    quantity: 22,
+    category: "furniture",
   },
   {
-    "id": "p5",
-    "name": "Monitor Stand",
-    "sku": "STD-009",
-    "price": 44.99,
-    "quantity": 3,
-    "category": "furniture"
+    id: "p5",
+    name: "Monitor Stand",
+    sku: "STD-009",
+    price: 44.99,
+    quantity: 3,
+    category: "furniture",
   },
   {
-    "id": "p6",
-    "name": "Notebook Pack",
-    "sku": "NB-050",
-    "price": 12.99,
-    "quantity": 150,
-    "category": "stationery"
-  }
-]
-;
+    id: "p6",
+    name: "Notebook Pack",
+    sku: "NB-050",
+    price: 12.99,
+    quantity: 150,
+    category: "stationery",
+  },
+];

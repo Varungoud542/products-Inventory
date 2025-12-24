@@ -12,9 +12,7 @@ export default function Modal({ children }: ModalProps) {
 
   return ReactDOM.createPortal(
     <div className="modal-overlay">
-      <div className="modal-content">
-        {children}
-      </div>
+      <div className="modal-content">{children}</div>
     </div>,
     modalRoot
   );
